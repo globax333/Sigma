@@ -1,5 +1,9 @@
-import calc from './calc'
+import Calculator from './calc';
 
-test('Add func', () => {
-      console.log('111')
+test('Devide func', () => {
+    let calc = new Calculator();
+    const result = calc.divide(10, 5);
+
+      console.log(`${result}`)
+      expect(result).toBe(2);
 })
