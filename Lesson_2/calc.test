@@ -1,0 +1,13 @@
+import Calculator from './calc';
+
+test.each([[6,1,6], [6,2,3], [6,3,2]])
+    ('Divide func', (a, b, expectedresult) => {
+        // Arange
+    let calc = new Calculator();
+         // Act
+    const actual_result = calc.divide(a, b);
+
+    console.log(`Result = ${expectedresult}`)
+        // Assert
+      expect(actual_result).toBe(expectedresult);
+});

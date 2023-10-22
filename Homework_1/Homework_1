@@ -1,0 +1,40 @@
+Форма ЛОГІН 
+
+//*[@name="username"]
+//*[@name="password"]
+//*[@type="submit"]
+
+Юзер залогінений 
+
+//*[@placeholder='Search'] - Пошук
+
+// Ліва панель 
+
+//*[contains(span, 'Admin')]
+//*[contains(span, 'PIM')]
+//*[contains(span, 'Leave')]
+//*[contains(span, 'Time')]
+//*[contains(span, 'Recrutment')]
+//*[contains(span, 'My Info')]
+//*[contains(span, 'Admin')]
+//*[contains(span, 'Performance')]
+//*[contains(span, 'Dashboard')]
+//*[contains(span, 'Directory')]
+//*[contains(span, 'Maintence')]
+//*[contains(span, 'Claim')]
+//*[contains(span, 'Buzz')]
+
+
+
+/html/body/div/div/div/header/div/div[2]/ul/li/span/i - Аватар дроп даун
+
+/html/body/div/div/div/header/div/div[2]/ul/li/ul/li[1] - About
+/html/body/div/div/div/header/div/div[2]/ul/li/ul/li[2] - Support
+/html/body/div/div/div/header/div/div[2]/ul/li/ul/li[3] - Change password
+/html/body/div/div/div/header/div/div[2]/ul/li/ul/li[4] - Logout
+
+
+//*[contains(a, 'Contact Details')]  - 'Contact Details
+
+
+//*[@class="oxd-form"]/div/div/div/div/div[2]/input форма Address, Phone, Email (знайдено 10 елементів)
