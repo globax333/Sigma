@@ -1,0 +1,104 @@
+import { expect, jest, it, afterEach, beforeEach } from '@jest/globals';
+import { Builder, By, until } from 'selenium-webdriver';
+import { Options } from 'selenium-webdriver/chrome';
+
+describe('First Selenium Tests', () => {
+    let driver;
+
+    beforeEach(async () => {
+        // Arrange
+        let options = new Options();
+        //options.headless();                       //headless mode 
+        //options.addArguments("--headless=new");   //headless mode 
+        //options.addArguments('--start-maximized');
+
+        driver = await new Builder()
+            .setChromeOptions(options)
+            .forBrowser("chrome")
+            .build();
+
+        await driver.manage().setTimeouts({script: 60000});
+        await driver.manage().setTimeouts({implicit: 10000});
+        await driver.manage().window().maximize();
+    });
+
+    afterEach(async () => {
+        await driver.quit();
+    });
+
+    it('Login Test long version', async () => {
+        const userNameInputLocator = "//input[@name='username' and @placeholder='Username']";
+        const userPasswordInputLocator = "//input[@name='password' and @placeholder='Password']";
+        const loginButtonLocator = "//button[@type='submit' and contains(normalize-space(), 'Login')]";
+    
+        const baseURL = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+        const userName= "Admin";
+        const userPassword = "admin123";
+        const expectedTitle = "OrangeHRM";
+        const expectedURL = "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index";
+    
+        // Act
+        await driver.get(baseURL);
+
+        const loginField = await driver.findElement(By.xpath(userNameInputLocator));
+        const passwordField = await driver.findElement(By.xpath(userPasswordInputLocator));
+        const loginButton = await driver.findElement(By.xpath(loginButtonLocator));
+
+        await loginField.sendKeys(userName);
+        await passwordField.sendKeys(userPassword);
+        await loginButton.click();
+
+        const actualTitle = await driver.getTitle();
+        const actualURL = await driver.getCurrentUrl();
+
+        // Assert
+        expect(expectedTitle).toBe(actualTitle);
+        expect(expectedURL).toBe(actualURL);
+
+        // await driver.quit();
+    });
+
+    it('Login Test short version', async () => {
+        // Act
+        await driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+
+        await driver.findElement(By.xpath("//input[@name='username' and @placeholder='Username']")).sendKeys("Admin");
+        await driver.findElement(By.xpath("//input[@name='password' and @placeholder='Password']")).sendKeys("admin123");
+        await driver.findElement(By.xpath("//button[@type='submit' and contains(normalize-space(), 'Login')]")).click();
+
+        // Assert
+        expect("OrangeHRM").toBe(await driver.getTitle());
+        expect("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index").toBe(await driver.getCurrentUrl());
+        
+        // await driver.quit();
+    });
+    
+    it('Login Test recommended version', async () => {
+        // Arrange
+        const userNameInputLocator = "//input[@name='username' and @placeholder='Username']";
+        const userPasswordInputLocator = "//input[@name='password' and @placeholder='Password']";
+        const loginButtonLocator = "//button[@type='submit' and contains(normalize-space(), 'Login')]";
+    
+        const baseURL = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+        const userName= "Admin";
+        const userPassword = "admin123";
+        const expectedTitle = "OrangeHRM";
+        const expectedURL = "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index";
+    
+        // Act
+        await driver.get(baseURL);
+
+        await driver.findElement(By.xpath(userNameInputLocator)).sendKeys(userName);
+        await driver.findElement(By.xpath(userPasswordInputLocator)).sendKeys(userPassword);
+        await driver.findElement(By.xpath(loginButtonLocator)).click();
+
+        const actualTitle = await driver.getTitle();
+        const actualURL = await driver.getCurrentUrl();
+
+        // Assert
+        expect(expectedTitle).toBe(actualTitle);
+        expect(expectedURL).toBe(actualURL);
+
+        //await driver.quit();
+    });
+});
