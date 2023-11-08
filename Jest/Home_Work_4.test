@@ -105,3 +105,12 @@ describe('First Selenium Tests', () => {
     
 
 });
+
+
+let arr = {
+    name: 'vlad',
+    id: 1
+}
+
+arr.id = 2
+console.log(arr)

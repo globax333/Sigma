@@ -34,9 +34,12 @@ it('My info test update data', async () => {
     await driver.findElement(By.xpath("//*[@href='/web/index.php/pim/viewMyDetails']")).click()
     await driver.findElement(By.xpath("//*[@href='/web/index.php/pim/contactDetails/empNumber/7']")).click()
 
-  
+    
     const elements = await driver.findElements(By.xpath("//*[@class='oxd-form']/div/div/div/div/div[2]/input"))
-    //const country = await driver.findElements(By.xpath("//*[@class='oxd-select-wrapper']/div/div[1]"))
+    await driver.findElement(By.xpath("//div[@class='oxd-select-text-input']")).click()
+    await driver.sleep(2000);
+    await driver.findElement(By.xpath("//*[@role='listbox']//*[text()='Algeria']")).click()
+
     const State = await elements[3];
     const Home = await elements[5];
     const Street_2 = await elements[1];
@@ -44,19 +47,12 @@ it('My info test update data', async () => {
     await Street_2.sendKeys('Soborna')
     await State.sendKeys('Vinnytska obl.')
     await Home.sendKeys('0432658587')
-    //await country.click()
-   // const country_list = await driver.findElements(By.xpath("[@role='listbox']"))
-    //const country_element = await country_list[0]
-
-
-    //await country_element.click()
-    //await driver.findElement(By.xpath("//*[@type='submit']")).click()
-    //await driver.navigate().refresh();
+    await driver.findElement(By.xpath("//button[@type='submit']")).click()
+    await driver.sleep(2000);
 
     expect(State).toBe(State)
     expect(Home).toBe(Home)
     expect(Street_2).toBe(Street_2)
-    //expect(country_element).toBe(country_element)
-    }, 15000);
+    }, 25000);
 
 });
