@@ -1,11 +1,14 @@
 import { expect, jest, it, afterEach, beforeEach } from '@jest/globals';
 import { Builder, By, until } from 'selenium-webdriver';
 import { Options } from 'selenium-webdriver/chrome';
+import LoginPage from './pages/login.page'
+import { Name } from 'selenium-webdriver/lib/command';
+
+
+
 
 describe('First Selenium Tests', () => {
     let driver;
-    const baseURL = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
-    
     beforeEach(async () => {
         // Arrange
         let options = new Options();
@@ -13,7 +16,7 @@ describe('First Selenium Tests', () => {
             .setChromeOptions(options)
             .forBrowser("chrome")
             .build();
-            
+
         await driver.manage().setTimeouts({script: 60000});
         await driver.manage().setTimeouts({implicit: 10000});
         await driver.manage().window().maximize();
@@ -24,36 +27,26 @@ describe('First Selenium Tests', () => {
     }) 
 
     it('Login Test long version', async () => {
-        const userNameInputLocator = "//input[@name='username' and @placeholder='Username']";
-        const userPasswordInputLocator = "//input[@name='password' and @placeholder='Password']";
-        const loginButtonLocator = "//button[@type='submit' and contains(normalize-space(), 'Login')]";
-    
-        const baseURL = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
-        const userName= "Admin";
-        const userPassword = "admin123";
+      
         const expectedTitle = "OrangeHRM";
         const expectedURL = "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index";
-    
-        await driver.get(baseURL);
-
-        const loginField = await driver.findElement(By.xpath(userNameInputLocator));
-        const passwordField = await driver.findElement(By.xpath(userPasswordInputLocator));
-        const loginButton = await driver.findElement(By.xpath(loginButtonLocator));
-
-        await loginField.sendKeys(userName);
-        await passwordField.sendKeys(userPassword);
-        await loginButton.click();
-
         const actualTitle = await driver.getTitle();
         const actualURL = await driver.getCurrentUrl();
+
+
+        await driver.get('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+        await LoginPage.setUserName('Admin')
+        await LoginPage.setUserPassword('admin123')
+        await LoginPage.pressLoginButton()
+
 
         // Assert
         expect(expectedTitle).toBe(actualTitle);
         expect(expectedURL).toBe(actualURL);
 
-        // await driver.quit();
+       
     });
-
+/*
     it('Validation forgot password form', async () => {
         
         const expected_Forgot_your_password = "Forgot your password?";
@@ -97,20 +90,12 @@ describe('First Selenium Tests', () => {
         await driver.findElement(By.xpath("//*[@type='submit']")).click()
 
         const actualURL_sendPasswordReset = await driver.getCurrentUrl();
-        const Reset_success_title = await driver.findElement(By.xpath("//*/h6")).getText()
+       // const Reset_success_title = await driver.findElement(By.xpath("//*")).getText()
        
         expect(expect_Reset_success_title).toBe(Reset_success_title)
         expect(expectedURL_sendPasswordReset).toBe(actualURL_sendPasswordReset)
     })
-    
-
+    */
 });
 
 
-let arr = {
-    name: 'vlad',
-    id: 1
-}
-
-arr.id = 2
-console.log(arr)

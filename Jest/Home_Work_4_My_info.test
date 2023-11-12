@@ -27,10 +27,7 @@ describe('My info test', () => {
 it('My info test update data', async () => {
 
     // Act
-    await driver.get(baseURL);
-    await driver.findElement(By.xpath("//input[@name='username' and @placeholder='Username']")).sendKeys('Admin')
-    await driver.findElement(By.xpath("//input[@name='password' and @placeholder='Password']")).sendKeys('admin123')
-    await driver.findElement(By.xpath("//button[@type='submit' and contains(normalize-space(), 'Login')]")).click()
+
     await driver.findElement(By.xpath("//*[@href='/web/index.php/pim/viewMyDetails']")).click()
     await driver.findElement(By.xpath("//*[@href='/web/index.php/pim/contactDetails/empNumber/7']")).click()
 
